@@ -1,21 +1,43 @@
 import streamlit as st
 from openai import OpenAI
+from PIL import Image
 
-# Show title and description.
-st.title("💬 Chatbot")
-st.write(
-    "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
-    "You can also learn how to build this app step by step by [following our tutorial](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)."
+# CSS for background image and container styles
+st.markdown(
+    """
+    <style>
+    .image-container {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        top: 0px;
+        right: 20px;
+    }
+    .image-container img {
+        margin-right: 10px;
+    }
+    /* Background image for the entire page */
+    .stApp {
+        background-image: URL('https://raw.githubusercontent.com/julianamendez11/chatbot2/main/montañas.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+with st.container():
+    st.markdown('<div class="image-container">', unsafe_allow_html=True)
+    st.image("logo.png", use_column_width=False, width=250)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# Show title and description.
+st.title("CuesTalent")
+st.write(
+    "This is a Cuesta chatbot that uses OpenAI's GPT-3.5 model to generate responses based on internal data. "
+)
 
     # Create an OpenAI client.
     client = OpenAI(api_key=openai_api_key)
